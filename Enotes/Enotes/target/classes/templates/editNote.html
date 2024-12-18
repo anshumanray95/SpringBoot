@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{ home :: layout(~{::title} , ~{::section})}">
+
+<head>
+	<meta charset=ISO-8859-1>
+	<title>editNote</title>
+
+</head>
+
+<body>
+
+	<section>
+		<div class="container mt-4">
+		    <div class="row">
+		        <div class="col-md-5 offset-md-3">
+		            <div class="card" style="border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s;">
+		                <div class="card-header text-center" style="background-color: #e9f2fa; border-bottom: 3px solid #007bff; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+		                    <h3 style="font-family: 'Arial', sans-serif; color: #007bff;">Edit Your Notes</h3>
+		                </div>
+
+		                <div class="card-body" style="padding: 2rem;">
+		                    <form action="/user/updateNotes" method="post">
+		                        <div class="mb-3">
+		                            <label style="font-weight: bold; color: #555;">Enter Title</label>
+		                            <input type="text" name="title" th:value="${n.title}" class="form-control" placeholder="Your note title..." style="border: 1px solid #007bff; border-radius: 10px; padding: 0.5rem;">
+		                        </div>
+
+		                        <div class="mb-3">
+		                            <label style="font-weight: bold; color: #555;">Enter Description</label>
+		                            <textarea rows="6" class="form-control" name="description" placeholder="Write your note description..." style="border: 1px solid #007bff; border-radius: 10px; padding: 0.5rem;">[[${n.description}]]</textarea>
+		                        </div>
+
+		                        <input type="hidden" name="id" th:value="${n.id}">
+		                        
+		                        <div class="text-end">
+									<button class="btn btn-primary mt-3" 
+									    style="background: linear-gradient(135deg, #007bff, rgb(0, 255, 255)); 
+									           border: none; 
+									           color: white; 
+									           font-weight: bold; 
+									           border-radius: 8px; 
+									           box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.4); 
+									           transition: transform 0.2s, box-shadow 0.2s, background 0.2s;" 
+									    onmouseover="this.style.transform='scale(1.05)'; 
+									                 this.style.boxShadow='0px 6px 14px rgba(0, 123, 255, 0.6)'; 
+									                 this.style.background='linear-gradient(135deg, rgb(0, 255, 255), #007bff)';"
+									    onmouseout="this.style.transform='scale(1)'; 
+									                this.style.boxShadow='0px 4px 10px rgba(0, 123, 255, 0.4)'; 
+									                this.style.background='linear-gradient(135deg, #007bff, rgb(0, 255, 255)';">
+									    Update
+									</button>
+
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<style>
+		        
+
+		        /* Card styling */
+		        .card {
+		            border-radius: 20px;
+		            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+		        }
+
+		        /* Card hover effect */
+		        .card:hover {
+		            transform: scale(1.05); /* Scale the card slightly */
+		            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+		        }
+
+		        /* Card header styling */
+		        .card-header {
+		            background-color: #e9f2fa;
+		            border-bottom: 3px solid #007bff;
+		            border-top-left-radius: 20px;
+		            border-top-right-radius: 20px;
+		            box-shadow: 0px 4px 10px rgba(40, 167, 69, 0.2); /* Adds a subtle green shadow for depth */
+		        }
+
+		        /* Shadow on hover for input fields */
+		        .form-control:hover, .form-control:focus {
+		            box-shadow: 0px 4px 8px rgba(40, 167, 69, 0.3); /* Light green shadow on hover */
+		            transition: box-shadow 0.3s ease;
+		        }
+
+		        /* Placeholder shadow on hover */
+		        .form-control::placeholder {
+		            color: #6c757d; /* Light gray color */
+		            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+		        }
+
+		        /* Enhance placeholder shadow when hovering over input */
+		        .form-control:hover::placeholder, .form-control:focus::placeholder {
+		            text-shadow: 1px 1px 4px rgba(40, 167, 69, 0.4); /* Stronger shadow on hover or focus */
+		            transition: text-shadow 0.3s ease;
+		        }
+		    </style>
+	</section>
+
+</body>
+
+</html>

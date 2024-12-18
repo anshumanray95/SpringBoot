@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{home :: layout(~{::title} , ~{::section})}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Register</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">Register Page</div>
+                    <div class="card-body">
+                        <form action="saveUser" method="post" onsubmit="return validateForm()">
+                            <div class="mb-1">
+                                <label>Enter First Name</label>
+                                <input type="text" name="firstName" class="form-control" required th:value="${user?.firstName}">
+                            </div>
+                            <div class="mb-1">
+                                <label>Enter Last Name</label>
+                                <input type="text" name="lastName" class="form-control" required th:value="${user?.lastName}">
+                            </div>
+                            <div class="mb-1">
+                                <label>Enter Email</label>
+                                <input type="email" name="email" class="form-control" required oninput="checkEmailExists(this.value)">
+                                <div id="emailExists" class="text-danger mt-1" style="display: none;">
+                                    Email is already registered.
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <label>Address</label>
+                                <input type="text" name="address" class="form-control" required th:value="${user?.address}">
+                            </div>
+                            <div class="mb-1">
+                                <label>Gender</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" value="Male" required th:checked="${user?.gender == 'Male'}">
+                                    <label class="form-check-label">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" value="Female" required th:checked="${user?.gender == 'Female'}">
+                                    <label class="form-check-label">Female</label>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <label>Enter Password</label>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Confirm Password</label>
+                                <input type="password" name="confirmPassword" class="form-control" required>
+                                <div id="passwordMismatch" class="text-danger mt-1" style="display: none;">
+                                    Password is not matching!
+                                </div>
+                            </div>
+                            <button class="btn btn-primary col-md-12" id="registerButton">Register</button>
+                        </form>
+						
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function validateForm() {
+                const password = document.querySelector('input[name="password"]').value;
+                const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+                if (password !== confirmPassword) {
+                    document.getElementById("passwordMismatch").style.display = "block";
+                    return false;
+                }
+                document.getElementById("passwordMismatch").style.display = "none";
+                return true;
+            }
+
+            function checkEmailExists(email) {
+                if (!email) return;
+
+                fetch(`/checkEmail?email=${encodeURIComponent(email)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const emailExistsMessage = document.getElementById("emailExists");
+                        const registerButton = document.getElementById("registerButton");
+                        if (data) {
+                            emailExistsMessage.style.display = "block";
+                            registerButton.disabled = true;
+                        } else {
+                            emailExistsMessage.style.display = "none";
+                            registerButton.disabled = false;
+                        }
+                    })
+                    .catch(error => console.error("Error checking email:", error));
+            }
+        </script>
+
+        <style>
+            .container {
+                margin-top: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                border-radius: 12px;
+                box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                transition: box-shadow 0.3s ease;
+            }
+
+            .card-header {
+                background: linear-gradient(135deg, rgb(0, 128, 255), #78b0f2);
+                color: white;
+                font-family: 'Courier New', Courier, monospace;
+                text-align: center;
+                padding: 1rem;
+                font-size: 1.5rem;
+                font-weight: bold;
+                border-top-left-radius: 12px;
+                border-top-right-radius: 12px;
+                box-shadow: 0px 4px 10px rgba(0, 115, 230, 0.3);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .form-control {
+                border: 1px solid #007bff;
+                border-radius: 8px;
+                box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+                padding: 0.75rem;
+            }
+
+            .btn-primary {
+                background: linear-gradient(135deg, #28a745, #85e085);
+                border: none;
+                color: white;
+                font-weight: bold;
+                box-shadow: 0px 5px 10px rgba(40, 167, 69, 0.3);
+                padding: 0.75rem;
+                border-radius: 8px;
+                transition: background 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
+            }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #85e085, #28a745);
+                color: white;
+                box-shadow: 0px 6px 12px rgba(40, 167, 69, 0.4);
+            }
+
+            .form-control:focus {
+                box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
+                outline: none;
+            }
+
+            .text-danger {
+                color: #dc3545;
+            }
+
+            .mt-1 {
+                margin-top: 0.25rem;
+            }
+        </style>
+    </section>
+</body>
+</html>

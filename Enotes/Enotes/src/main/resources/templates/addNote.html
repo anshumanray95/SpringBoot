@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{ home :: layout(~{::title} , ~{::section})}">
+
+  <head>
+	<meta  charset=ISO-8859-1>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>addNote</title>
+ 
+  </head>
+
+  <body>
+  
+    <section>
+		
+		<div class="container mt-4">
+		    <div class="row">
+		        <div class="col-md-5 offset-md-3">
+		            <div class="card" 
+		                 style="border-radius: 20px; 
+		                        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1); 
+		                        transition: transform 0.3s, box-shadow 0.3s;"
+		                 onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 30px rgba(0, 0, 0, 0.2)';"
+		                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 6px 24px rgba(0, 0, 0, 0.1)';">
+		                 
+		                <div class="card-header text-center" style="background-color: #f8f9fa; border-bottom: 2px solid #28a745; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+		                    <h3 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #28a745;">Add Your Notes</h3>
+		                </div>
+
+		                <div class="card-body" style="padding: 2rem;">
+		                    <form action="saveNotes" method="post">
+		                        <div class="mb-3">
+		                            <label style="font-weight: bold;">Enter Title</label>
+		                            <input type="text" name="title" class="form-control" placeholder="Your note title..."
+		                                   style="border: 1px solid #28a745; border-radius: 10px; padding: 0.5rem;">
+		                        </div>
+
+		                        <div class="mb-3">
+		                            <label style="font-weight: bold;">Enter Description</label>
+		                            <textarea rows="6" class="form-control" name="description" placeholder="Write your note description..."
+		                                      style="border: 1px solid #28a745; border-radius: 10px; padding: 0.5rem;"></textarea>
+		                        </div>
+
+		                        <div class="text-end">
+									<button 
+									    class="btn btn-primary btn-m" 
+									    style="background: linear-gradient(135deg, #28a745, rgb(163, 250, 109)); 
+									           border: none; 
+									           color: white; 
+									           font-weight: bold; 
+									           border-radius: 10px;
+									           box-shadow: 0px 4px 8px rgba(40, 167, 69, 0.4); 
+									           transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;" 
+									    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0px 6px 12px rgba(40, 167, 69, 0.6)'; this.style.background='linear-gradient(135deg, rgb(163, 250, 109), #28a745)';"
+									    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 8px rgba(40, 167, 69, 0.4)'; this.style.background='linear-gradient(135deg, #28a745, rgb(163, 250, 109))';">
+									    Save
+									</button>
+
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+<style>
+		/* Card header shadow styling */
+		.card-header {
+		    background-color: #f8f9fa;
+		    border-bottom: 2px solid #28a745;
+		    border-top-left-radius: 20px;
+		    border-top-right-radius: 20px;
+		    box-shadow: 0px 4px 10px rgba(40, 167, 69, 0.2); /* Adds a subtle green shadow for depth */
+		}
+
+		/* Shadow on hover for input fields */
+		.form-control:hover, .form-control:focus {
+		    box-shadow: 0px 4px 8px rgba(40, 167, 69, 0.3); /* Light green shadow on hover */
+		    transition: box-shadow 0.3s ease;
+		}
+
+		/* Placeholder shadow on hover */
+		.form-control::placeholder {
+		    color: #6c757d; /* Light gray color */
+		    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+		}
+
+		/* Enhance placeholder shadow when hovering over input */
+		.form-control:hover::placeholder, .form-control:focus::placeholder {
+		    text-shadow: 1px 1px 4px rgba(40, 167, 69, 0.4); /* Stronger shadow on hover or focus */
+		    transition: text-shadow 0.3s ease;
+		}
+
+
+		</style>
+	</section>
+  
+  </body>
+
+</html>
